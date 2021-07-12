@@ -1,1 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="index.js"></script>
+    <title>Recipes on Request</title>
+  </head>
+  <body>
+    <h1 id="websiteheader">Recipes On Demand</h1>
+    <div id="recipebutton">
+      <button id="recipes-btn">Click to view Recipes</button>
 
+      <button id="fav-btn">Click to view Favorite</button>
+    </div>
+    <div id="favoritelist">
+      <span id="closefav">&times;</span>
+      <h4>Favorite List</h4>
+      <div id="favoriteitems"></div>
+    </div>
+
+    <div id="modal">
+      <span id="close">&times;</span>
+      <div id="modalContent"></div>
+    </div>
+    <div id="rightmodal">
+      <span id="closerightmodal">&times;</span>
+      <div id="rightmodalcontent"></div>
+    </div>
+    <section id="daily">
+      <h2>
+        Every Second we post a new recipe, try it, and let us know what you
+        think!
+      </h2>
+      <button id="daily-btn">Daily Recipe</button>
+      <h3>Click To View Our Recipe Of The Day</h3>
+
+      <div id="daily-recipe">
+        <span id="daily-recipe-close">&times;</span>
+        <div id="daily-recipe-cont">
+          <h5 id="dailytitle"></h5>
+          <ul id="dietItems"></ul>
+          <section>
+            <ul id="daily-steps"></ul>
+          </section>
+        </div>
+      </div>
+      <!-- <div id="form">
+        <form>
+          <h3 id="feedback">Send Us Your Feed Back</h3>
+          <label for="name">Name </label>
+          <input
+            type="text"
+            name="name"
+            value=""
+            placeholder="Name"
+            id="feedbackname"
+          />
+          <label for="">Message</label>
+          <input
+            type="text"
+            name="message"
+            value=""
+            placeholder="Message"
+            id="feedbackmessage"
+          />
+        </form>
+      </div> -->
+    </section>
+
+    <img
+      src="./logo_phase-1.png"
+      alt="logo"
+      width="100rem"
+      height="100rem"
+      id="logo"
+    />
+  </body>
+</html>
