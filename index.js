@@ -37,6 +37,8 @@ const init = () => {
   }
 
   function createRecipeDiv(item) {
+    document.getElementById("dailyheaderone").innerText = "";
+    document.getElementById("dailyheadertwo").innerText = "";
     let rightModal = document.getElementById("rightmodal");
     rightModal.style.display = "block";
     let rightModalCont = document.getElementById("rightmodalcontent");
@@ -55,6 +57,10 @@ const init = () => {
     headerName.innerText = "";
     let closeRightModal = document.getElementById("closerightmodal");
     closeRightModal.addEventListener("click", () => {
+      document.getElementById("dailyheaderone").innerText =
+        "Every Second we post a new recipe, try it, and let us know what you think!";
+      document.getElementById("dailyheadertwo").innerText =
+        "Click To View Our Recipe Of The Day";
       rightModal.style.display = "none";
       headerName.innerText = "Recipes On Demand";
     });
@@ -120,6 +126,8 @@ const init = () => {
   let showList = document.getElementById("fav-btn");
   showList.addEventListener("click", () => {
     let favList = document.getElementById("favoritelist");
+    document.getElementById("dailyheaderone").innerText = "";
+    document.getElementById("dailyheadertwo").innerText = "";
     favList.style.display = "block";
     let innerfav = document.getElementById("favoriteitems");
     innerfav.innerHTML = "";
@@ -136,6 +144,10 @@ const init = () => {
 
     closefav.addEventListener("click", () => {
       favList.style.display = "none";
+      document.getElementById("dailyheaderone").innerText =
+        "Every Second we post a new recipe, try it, and let us know what you think!";
+      document.getElementById("dailyheadertwo").innerText =
+        "Click To View Our Recipe Of The Day";
     });
   });
 
@@ -144,32 +156,39 @@ const init = () => {
   let dailyDietList = document.getElementById("dietItems");
   dailyBtn.addEventListener("click", () => {
     dailyDiv.style.display = "block";
+
     fetch(
       "https://api.spoonacular.com/recipes/random?apiKey=d8f538c223da4aef8b2ec78c600ff003"
     )
       .then((resp) => resp.json())
       .then((data) => {
         console.log(data.recipes[0]);
-        let title = document.getElementById("dailytitle");
+        let dailyCont = document.getElementById("daily-recipe-cont");
+        dailyCont.innerHTML = "";
+        let title = document.createElement("h5");
+        title.id = "dailytitle";
+        // let title = document.getElementById("dailytitle");
         title.innerText = data.recipes[0].title;
+        dailyCont.appendChild(title);
+        let dietList = document.createElement("ul");
+        dailyCont.appendChild(dietList);
         for (let item of data.recipes[0].diets) {
           let dietItem = document.createElement("li");
           dietItem.innerText = item;
-          dailyDietList.appendChild(dietItem);
+          dietList.appendChild(dietItem);
         }
         console.log(data);
         let stepsArr = data.recipes[0].analyzedInstructions[0].steps;
-        let listDiv = document.getElementById("daily-steps");
+        let listDiv = document.createElement("ul");
+        listDiv.id = "daily-steps";
+        dailyCont.appendChild(listDiv);
+        // let listDiv = document.getElementById("daily-steps");
         for (let i of stepsArr) {
           let stepDaily = document.createElement("li");
           stepDaily.innerText = i.step;
+          stepDaily.id = "step";
           listDiv.appendChild(stepDaily);
         }
-
-        // let dailyImg = document.createElement("img");
-        // dailyImg.src = data.recipes[0].image;
-        // dailyImg.style = "width: 5px height:50px";
-        // dailyDiv.appendChild(dailyImg);
       });
   });
   let closedaily = document.getElementById("daily-recipe-close");

@@ -1,10 +1,6 @@
 {
   "fav": [
     {
-      "title": "Berry Banana Breakfast Smoothie",
-      "id": 1
-    },
-    {
       "title": "Chicken Tortilla Soup (Slow Cooker)",
       "id": 2
     },
@@ -15,6 +11,10 @@
     {
       "title": "Cauliflower, Brown Rice, and Vegetable Fried Rice",
       "id": 5
+    },
+    {
+      "title": "Berry Banana Breakfast Smoothie",
+      "id": 6
     }
   ]
 }
