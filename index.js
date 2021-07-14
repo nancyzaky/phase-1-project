@@ -162,12 +162,10 @@ const init = () => {
     )
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data.recipes[0]);
         let dailyCont = document.getElementById("daily-recipe-cont");
         dailyCont.innerHTML = "";
         let title = document.createElement("h5");
         title.id = "dailytitle";
-        // let title = document.getElementById("dailytitle");
         title.innerText = data.recipes[0].title;
         dailyCont.appendChild(title);
         let dietList = document.createElement("ul");
@@ -177,7 +175,6 @@ const init = () => {
           dietItem.innerText = item;
           dietList.appendChild(dietItem);
         }
-        console.log(data);
         let stepsArr = data.recipes[0].analyzedInstructions[0].steps;
         let listDiv = document.createElement("ul");
         listDiv.id = "daily-steps";
@@ -189,6 +186,19 @@ const init = () => {
           stepDaily.id = "step";
           listDiv.appendChild(stepDaily);
         }
+        let btnFav = document.createElement("button");
+        btnFav.id = "daily-fav-btn";
+        btnFav.innerText = "Add To Favorite List";
+        dailyCont.appendChild(btnFav);
+        btnFav.addEventListener("click", () => {
+          let newFav = data.recipes[0];
+
+          addToFavList(newFav);
+        });
+        // btnFav.addEventListener("click", function () {
+        //   console.log(data);
+        //   addToFavList(data.recipes[0]);
+        // });
       });
   });
   let closedaily = document.getElementById("daily-recipe-close");
