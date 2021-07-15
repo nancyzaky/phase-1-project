@@ -91,7 +91,7 @@ const init = () => {
     let modal = document.getElementById("modal");
     modal.style.display = "block";
     console.log(modal);
-    let menuHeader = document.createElement("h3");
+    let menuHeader = document.createElement("h2");
     menuHeader.innerText = "All Recipes";
     let modalContent = document.getElementById("modalContent");
     let closeModal = document.getElementById("close");
@@ -205,5 +205,47 @@ const init = () => {
   closedaily.addEventListener("click", () => {
     document.getElementById("daily-recipe").style.display = "none";
   });
+
+  let formSubmit = document.getElementById("submitForm");
+  console.log(formSubmit);
+  formSubmit.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let newComment = e.target[1].value;
+    let newName = e.target[0].value;
+    let timePosted = new Date() + "";
+    console.log(timePosted);
+    fetch("http://localhost:3000/comments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        name: newName,
+        comment: newComment,
+        time: timePosted,
+      }),
+    });
+    fetchComments();
+  });
+  let idArr = [];
+  function fetchComments() {
+    fetch("http://localhost:3000/comments")
+      .then((resp) => resp.json())
+      .then((data) => {
+        data.forEach((item) => {
+          if (idArr.indexOf(item.id) === -1) {
+            let comment = document.getElementById("commentsSection");
+            let name = document.createElement("p");
+            name.innerText = `${item.name} said: \n ${item.comment} \n ${item.time}`;
+            idArr.push(item.id);
+            comment.appendChild(name);
+          }
+        });
+
+        //console.log(idArr);
+      });
+  }
+  fetchComments();
 };
 window.addEventListener("DOMContentLoaded", init);

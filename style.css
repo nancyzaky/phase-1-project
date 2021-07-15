@@ -5,7 +5,9 @@ body {
   background-size: cover;
   background-attachment: fixed;
 }
-
+#dailyheadertwo {
+  color: white;
+}
 h1 {
   margin-top: 15%;
   text-align: center;
@@ -16,14 +18,15 @@ h1:hover {
   color: plum;
 }
 #logo {
-  margin-top: 35%;
+  margin-top: 80%;
   margin-left: 43%;
   height: 20%;
   width: 20%;
 }
 #favoritelist {
+  border: 5px solid white;
   color: white;
-  width: 20%;
+  width: 27%;
   top: 45%;
   margin-left: 70%;
   height: 400px;
@@ -37,9 +40,11 @@ h1:hover {
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 5%;
   height: 400px;
-  padding-right: 4rem;
-  text-align: center;
+  /* padding-right: 4rem; */
+  padding: 2rem 1rem;
+  justify-content: center;
 }
+
 #fav-btn {
   height: 3rem;
   width: 12rem;
@@ -110,7 +115,7 @@ h1:hover {
   float: inline-end;
   padding-inline-start: 5rem;
   margin-top: 1;
-  margin-left: 83%;
+  margin-left: 73%;
 }
 
 li {
@@ -119,15 +124,18 @@ li {
 ::-webkit-scrollbar {
   width: 10px;
   max-height: min-content;
+  border-radius: 19rem;
 }
 ::-webkit-scrollbar-track {
   box-shadow: transparent;
-  border-radius: 20px;
+  border-radius: 10rem;
+  height: 70%;
+  max-height: 90%;
 }
 
 ::-webkit-scrollbar-thumb {
   background: lightgrey;
-  border-radius: 20px;
+  border-radius: 10rem;
 }
 #close {
   color: red;
@@ -140,6 +148,7 @@ li {
 
 li {
   padding-top: 10%;
+  padding: 1.5rem 1rem;
 }
 #recipebutton {
   height: 200px;
@@ -231,7 +240,7 @@ li {
 h2 {
   margin-top: 2%;
   text-align: center;
-  color: white;
+  color: #dddddd;
 }
 #recipeAllButtonsDiv {
   background-color: transparent;
@@ -243,10 +252,10 @@ h2 {
   margin-left: 70%;
 }
 #daily {
-  align-content: center;
+  align-items: center;
   text-align: center;
-  margin-top: 80px;
-  margin-left: 35%;
+  /* margin-top: 80px;
+  margin-left: 35%; */
 }
 #daily-btn:hover {
   color: red;
@@ -260,21 +269,21 @@ h2 {
   font-style: oblique;
   margin: 0;
   position: absolute;
-  top: 100%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-  border-color: white;
-  border-width: 0.2rem;
+  border: 0.2rem solid white;
   box-shadow: white;
   font-weight: 900;
   margin-left: -5%;
+  top: 95%;
 }
 
 #daily-recipe {
+  top: 81%;
   margin-top: 10%;
   height: 400px;
   width: 600px;
-  margin-left: 20%;
+  margin-left: 30%;
   display: none;
   position: absolute;
   z-index: 1;
@@ -311,14 +320,14 @@ h2 {
 
 #form {
   text-align: center;
-  display: flexbox;
+  display: flex;
   margin-top: auto;
 }
 
 #daily-recipe-close {
   color: red;
   float: right;
-  margin-left: 73%;
+  margin-left: 57%;
   font-size: 28px;
   font-weight: bold;
   align-content: center;
@@ -331,4 +340,55 @@ h3:hover {
 }
 li:hover {
   color: red;
+}
+
+#formCont {
+  top: 180%;
+}
+#form {
+  border: 5px solid white;
+  height: 400px;
+  width: 400px;
+  position: absolute;
+  display: flex;
+  top: 180%;
+  border-radius: 5rem;
+  justify-content: center;
+  display: grid;
+  text-align: center;
+  padding: 1rem 2rem;
+  justify-content: start;
+}
+
+#feedbackname {
+  height: 40px;
+  width: 270px;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  margin: 1;
+}
+
+#feedbackmessage {
+  height: 70px;
+  width: 270px;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  margin: 1;
+}
+#commentsSection {
+  border: 5px solid white;
+  position: absolute;
+  top: 180%;
+  margin-left: 40%;
+  height: 430px;
+  width: 700px;
+  border-radius: 5rem;
+  justify-content: start;
+  padding-left: 2rem;
+  padding-top: 2rem;
+}
+
+label {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
