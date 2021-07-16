@@ -61,7 +61,6 @@ const init = () => {
     recipe_img.classList.add("imageId");
     rightmodalcontent.appendChild(header);
     rightmodalcontent.appendChild(recipe_img);
-    //make headers disapear behind the div
     let headerName = document.getElementById("websiteheader");
     headerName.innerText = "";
     let closeRightModal = document.getElementById("closerightmodal");
@@ -111,9 +110,6 @@ const init = () => {
     fetch(
       "https://api.spoonacular.com/recipes/complexSearch?apiKey=d8f538c223da4aef8b2ec78c600ff003"
     )
-      // fetch(
-      //   "https://api.spoonacular.com/recipes/findByNutrients?apiKey=d8f538c223da4aef8b2ec78c600ff003&minCarbs=10&maxCarbs=50&number=15"
-      // )
       .then((resp) => resp.json())
       .then((data) => {
         console.log(data);
@@ -145,6 +141,7 @@ const init = () => {
     fetch("http://localhost:3000/fav")
       .then((resp) => resp.json())
       .then((data) => {
+        debugger;
         for (let fav of data) {
           let addFav = document.createElement("li");
           addFav.innerText = fav.title;
@@ -249,8 +246,6 @@ const init = () => {
             comment.appendChild(name);
           }
         });
-
-        //console.log(idArr);
       });
   }
   fetchComments();
@@ -304,8 +299,6 @@ const init = () => {
               .then((data) => {
                 let rightModal = document.getElementById("search-ing-recipe");
                 rightModal.innerHTML = "";
-                // let backButton = document.createElement("button");
-                // backButton.innerText = "Back";
                 console.log(data[0]);
                 if (data[0]) {
                   data[0].steps.forEach((step) => {
@@ -319,17 +312,11 @@ const init = () => {
                     rightModal.appendChild(stepsList);
                   });
                 }
-                // rightModal.appendChild(backButton);
               });
           });
         }
       });
   });
 };
-//
 
 window.addEventListener("DOMContentLoaded", init);
-
-//  data[0].steps.forEach((stepItem) => {
-
-//  });
