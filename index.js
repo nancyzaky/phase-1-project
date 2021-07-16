@@ -1,11 +1,12 @@
 const init = () => {
+  //get full recipe steps
   function fullrecipe(recipe) {
     let stepsList = document.createElement("ul");
     stepsList.classList.add("stepslist");
 
     stepsList.innerHTML = "";
 
-    console.log(recipe, recipe.id);
+    console.log(recipe);
     let recipeUrl = `https://api.spoonacular.com/recipes/${recipe.id}/analyzedInstructions?apiKey=d8f538c223da4aef8b2ec78c600ff003`;
 
     fetch(recipeUrl)
@@ -21,21 +22,28 @@ const init = () => {
         });
       });
   }
+  // fav array to not repeat the favorite items rendered
+  let favArr = [];
   function addToFavList(favItem) {
-    fetch("http://localhost:3000/fav", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        title: favItem.title,
-      }),
-    })
-      .then((resp) => resp.json())
-      .then((data) => console.log(data));
+    console.log(favArr);
+    if (!favArr.includes(favItem.title)) {
+      fetch("http://localhost:3000/fav", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          title: favItem.title,
+        }),
+      })
+        .then((resp) => resp.json())
+        .then((data) => console.log(data));
+    }
+    favArr.push(favItem.title);
   }
 
+  //full recipe with pic steps/ fav and full list buttons
   function createRecipeDiv(item) {
     document.getElementById("dailyheaderone").innerText = "";
     document.getElementById("dailyheadertwo").innerText = "";
@@ -53,6 +61,7 @@ const init = () => {
     recipe_img.classList.add("imageId");
     rightmodalcontent.appendChild(header);
     rightmodalcontent.appendChild(recipe_img);
+    //make headers disapear behind the div
     let headerName = document.getElementById("websiteheader");
     headerName.innerText = "";
     let closeRightModal = document.getElementById("closerightmodal");
@@ -81,8 +90,6 @@ const init = () => {
 
     rightModal.appendChild(buttonsDiv);
     recipeDetails.addEventListener("click", () => {
-      // console.log(item);
-      // let stepsList = document.createElement("ul");
       fullrecipe(item);
     });
   }
@@ -104,8 +111,12 @@ const init = () => {
     fetch(
       "https://api.spoonacular.com/recipes/complexSearch?apiKey=d8f538c223da4aef8b2ec78c600ff003"
     )
+      // fetch(
+      //   "https://api.spoonacular.com/recipes/findByNutrients?apiKey=d8f538c223da4aef8b2ec78c600ff003&minCarbs=10&maxCarbs=50&number=15"
+      // )
       .then((resp) => resp.json())
       .then((data) => {
+        console.log(data);
         modalContent.innerHTML = "";
 
         modalContent.appendChild(menuHeader);
@@ -179,7 +190,7 @@ const init = () => {
         let listDiv = document.createElement("ul");
         listDiv.id = "daily-steps";
         dailyCont.appendChild(listDiv);
-        // let listDiv = document.getElementById("daily-steps");
+
         for (let i of stepsArr) {
           let stepDaily = document.createElement("li");
           stepDaily.innerText = i.step;
@@ -195,10 +206,6 @@ const init = () => {
 
           addToFavList(newFav);
         });
-        // btnFav.addEventListener("click", function () {
-        //   console.log(data);
-        //   addToFavList(data.recipes[0]);
-        // });
       });
   });
   let closedaily = document.getElementById("daily-recipe-close");
@@ -247,5 +254,82 @@ const init = () => {
       });
   }
   fetchComments();
+
+  //search recipes by ingredienst:
+  function searchIngredients(arr) {
+    const searchUrl =
+      "https://api.spoonacular.com/recipes/findByIngredients?apiKey=d8f538c223da4aef8b2ec78c600ff003&ingredients=";
+
+    let word = arr.join(",+");
+    console.log(word);
+    const fullUrl = searchUrl + word;
+    console.log(fullUrl);
+    return fullUrl;
+  }
+  let searchResult = document.getElementById("search");
+  searchResult.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let itemsArr = [];
+    let result = e.target[0].value;
+    let resultTwo = e.target[1].value;
+    let resultThree = e.target[2].value;
+    let resultFour = e.target[3].value;
+    itemsArr.push(result, resultTwo, resultThree, resultFour);
+    console.log(itemsArr);
+    let resultVal = searchIngredients(itemsArr);
+    console.log(resultVal);
+    fetch(resultVal)
+      .then((resp) => resp.json())
+      .then((data) => {
+        let rightModal = document.getElementById("search-ing-recipe");
+        rightModal.innerHTML = "";
+        rightModal.style.display = "block";
+        let header = document.createElement("h1");
+        header.innerText = "Recipes that matches your search";
+        rightModal.appendChild(header);
+        let newArr = [];
+        console.log(data);
+        for (let i of data) {
+          console.log(i.title);
+
+          let recipeUrl = `https://api.spoonacular.com/recipes/${i.id}/analyzedInstructions?apiKey=d8f538c223da4aef8b2ec78c600ff003`;
+          let headers = document.createElement("h2");
+          headers.innerText = i.title;
+          rightModal.append(headers);
+          console.log(rightModal);
+          headers.addEventListener("click", () => {
+            console.log("clicked", recipeUrl);
+            fetch(recipeUrl)
+              .then((resp) => resp.json())
+              .then((data) => {
+                let rightModal = document.getElementById("search-ing-recipe");
+                rightModal.innerHTML = "";
+                // let backButton = document.createElement("button");
+                // backButton.innerText = "Back";
+                console.log(data[0]);
+                if (data[0]) {
+                  data[0].steps.forEach((step) => {
+                    console.log(step);
+
+                    let stepsList = document.createElement("ul");
+                    let stepPara = document.createElement("li");
+                    stepPara.innerText = step.step;
+
+                    stepsList.appendChild(stepPara);
+                    rightModal.appendChild(stepsList);
+                  });
+                }
+                // rightModal.appendChild(backButton);
+              });
+          });
+        }
+      });
+  });
 };
+//
+
 window.addEventListener("DOMContentLoaded", init);
+
+//  data[0].steps.forEach((stepItem) => {
+
+//  });
