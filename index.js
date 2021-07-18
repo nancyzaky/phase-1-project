@@ -7,7 +7,7 @@ const init = () => {
     stepsList.innerHTML = "";
 
     console.log(recipe);
-    let recipeUrl = `https://api.spoonacular.com/recipes/${recipe.id}/analyzedInstructions?apiKey=d8f538c223da4aef8b2ec78c600ff003`;
+    let recipeUrl = `https://api.spoonacular.com/recipes/${recipe.id}/analyzedInstructions?apiKey=Api-key`;
 
     fetch(recipeUrl)
       .then((resp) => resp.json())
@@ -108,7 +108,7 @@ const init = () => {
     menuList.innerHTML = "";
     menuList.classList.add("recipelist");
     fetch(
-      "https://api.spoonacular.com/recipes/complexSearch?apiKey=d8f538c223da4aef8b2ec78c600ff003"
+      "https://api.spoonacular.com/recipes/complexSearch?apiKey=Api-key"
     )
       .then((resp) => resp.json())
       .then((data) => {
@@ -166,7 +166,7 @@ const init = () => {
     dailyDiv.style.display = "block";
 
     fetch(
-      "https://api.spoonacular.com/recipes/random?apiKey=d8f538c223da4aef8b2ec78c600ff003"
+      "https://api.spoonacular.com/recipes/random?apiKey=Api-key"
     )
       .then((resp) => resp.json())
       .then((data) => {
@@ -253,7 +253,7 @@ const init = () => {
   //search recipes by ingredienst:
   function searchIngredients(arr) {
     const searchUrl =
-      "https://api.spoonacular.com/recipes/findByIngredients?apiKey=d8f538c223da4aef8b2ec78c600ff003&ingredients=";
+      "https://api.spoonacular.com/recipes/findByIngredients?apiKey=Api-key3&ingredients=";
 
     let word = arr.join(",+");
     console.log(word);
@@ -287,7 +287,7 @@ const init = () => {
         for (let i of data) {
           console.log(i.title);
 
-          let recipeUrl = `https://api.spoonacular.com/recipes/${i.id}/analyzedInstructions?apiKey=d8f538c223da4aef8b2ec78c600ff003`;
+          let recipeUrl = `https://api.spoonacular.com/recipes/${i.id}/analyzedInstructions?apiKey=Api-key`;
           let headers = document.createElement("h2");
           headers.innerText = i.title;
           rightModal.append(headers);
